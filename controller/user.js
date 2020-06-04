@@ -13,7 +13,7 @@ class User {
    * @desc CREATING USER ACCOUNT
    * @param {*} req
    * @param {*} res
-   *  @return {obj} json
+   *  @return {obj} JSON
    */
   static async createUserAccount(req, res) {
     try {
@@ -211,6 +211,16 @@ class User {
    */
   static async resendVerifyUser(req, res) {
     try {
+      const validationResult = Form.validateFields(
+        'resend-verify-token',
+        formSchema,
+        req.body
+      );
+
+      if (validationResult.error) {
+        return res.status(400).json(validationResult);
+      }
+
       const {email} = req.body;
       const user = await db.user.findOne({ email })
      

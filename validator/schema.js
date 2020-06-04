@@ -37,5 +37,9 @@ export default {
     formType: 'resetPassword',
     password: { field: 'password', required: true },
   },
+  verification: {
+    formType: 'resend-verify-token',
+    email:{field: 'email', required: true,}
+  }
 
 };
