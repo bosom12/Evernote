@@ -1,0 +1,663 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Evernote where users can create Todo",
+    "version": "1.0.0",
+    "title": "Evernote",
+    "contact": {
+      "email": "bosomadex@gmail.com"
+    }
+  },
+  "host": "127.0.0.1:8081",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "Everything about users"
+    },
+    {
+      "name": "Todo",
+      "description": "Everything about Todo"
+    }
+  ],
+  "schemes": ["http", "https"],
+  "paths": {
+    "/user/create": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create user account",
+        "description": "description",
+        "operationId": "createUserAccount",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that need to be added to user table",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success Response Format",
+            "schema": {
+              "$ref": "#/definitions/SuccessApiResponseFormat"
+            }
+          },
+          "400": {
+            "description": "Failure Response Format",
+            "schema": {
+              "$ref": "#/definitions/FailedApiResponseFormat"
+            }
+          }
+        }
+      }
+    },
+    "/user/verify": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "email verification",
+        "description": "This will verify user email",
+        "operationId": "verifyUser",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "verify_Token",
+            "required": true,
+            "description": "verify account query Token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Response Format",
+            "schema": {
+              "$ref": "#/definitions/SuccessApiResponseFormat"
+            }
+          },
+          "400": {
+            "description": "Failure Response Format",
+            "schema": {
+              "$ref": "#/definitions/FailedApiResponseFormat"
+            }
+          }
+        }
+      }
+    },
+    "/user/verify/resend": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "resend verification",
+        "description": "This will allow user to resend email verification",
+        "operationId": "resendVerifyUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that receives email",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/forget"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Response Format",
+            "schema": {
+              "$ref": "#/definitions/SuccessApiResponseFormat"
+            }
+          },
+          "400": {
+            "description": "Failure Response Format",
+            "schema": {
+              "$ref": "#/definitions/FailedApiResponseFormat"
+            }
+          }
+        }
+      }
+    },
+    "/user/forget": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "forget password API",
+        "description": "This will allow user to reset password",
+        "operationId": "forgetPassword",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that receives email",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/forget"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Response Format",
+            "schema": {
+              "$ref": "#/definitions/SuccessApiResponseFormat"
+            }
+          },
+          "400": {
+            "description": "Failure Response Format",
+            "schema": {
+              "$ref": "#/definitions/FailedApiResponseFormat"
+            }
+          }
+        }
+      }
+    },
+    "/user/reset-password": {
+      "put": {
+        "tags": ["Users"],
+        "summary": " reset password API ",
+        "description": "This will allow user to reset password",
+        "operationId": "resetPassword",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Reset_Token",
+            "description": "Reset Token to be passed to query",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that receives email",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/reset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Response Format",
+            "schema": {
+              "$ref": "#/definitions/SuccessApiResponseFormat"
+            }
+          },
+          "400": {
+            "description": "Failure Response Format",
+            "schema": {
+              "$ref": "#/definitions/FailedApiResponseFormat"
+            }
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Login user",
+        "description": "description",
+        "operationId": "loginUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that need to be logged in",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Response Format",
+            "schema": {
+              "$ref": "#/definitions/SuccessApiResponseFormat"
+            }
+          },
+          "400": {
+            "description": "Failure Response Format",
+            "schema": {
+              "$ref": "#/definitions/FailedApiResponseFormat"
+            }
+          }
+        }
+      }
+    },
+    "/todo/create": {
+      "post": {
+        "tags": ["Todo"],
+        "summary": "Create Todo",
+        "description": "Todo form data",
+        "operationId": "createTodo",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/definitions/token"
+            }
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "description": "Todo list",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/todo"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success Response Format"
+          },
+          "400": {
+            "description": "Failure Response Format"
+          }
+        }
+      }
+    },
+    "/todo": {
+      "get": {
+        "tags": ["Todo"],
+        "summary": "get all Todo",
+        "description": "Multiple Todo to be displayed",
+        "operationId": "getAllTodo",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Bearer token",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Response Format",
+            "schema": {
+              "$ref": "#/definitions/SuccessApiResponseFormat"
+            }
+          },
+          "400": {
+            "description": "Failure Response Format",
+            "schema": {
+              "$ref": "#/definitions/FailedApiResponseFormat"
+            }
+          }
+        }
+      }
+    },
+    "/todo/{todoId}": {
+      "get": {
+        "tags": ["Todo"],
+        "summary": "get One Todo",
+        "description": "One Todo to be displayed",
+        "operationId": "getOneTodo",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/definitions/token"
+            }
+          },
+          {
+            "in": "path",
+            "name": "todoId",
+            "description": "params",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/params"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Response Format",
+            "schema": {
+              "$ref": "#/definitions/SuccessApiResponseFormat"
+            }
+          },
+          "400": {
+            "description": "Failure Response Format",
+            "schema": {
+              "$ref": "#/definitions/FailedApiResponseFormat"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Todo"],
+        "summary": "update Todo",
+        "description": "Todo is to be updated",
+        "operationId": "updateTodo",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/definitions/token"
+            }
+          },
+          {
+            "in": "path",
+            "name": "todoId",
+            "description": "params ",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/params"
+            }
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "update todoId ",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/todo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Response Format",
+            "schema": {
+              "$ref": "#/definitions/SuccessApiResponseFormat"
+            }
+          },
+          "400": {
+            "description": "Failure Response Format",
+            "schema": {
+              "$ref": "#/definitions/FailedApiResponseFormat"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Todo"],
+        "summary": "delete Todo",
+        "description": "delete Todo api",
+        "operationId": "deleteTodo",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/definitions/token"
+            }
+          },
+          {
+            "in": "path",
+            "name": "todoId",
+            "description": "params",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/params"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Response Format",
+            "schema": {
+              "$ref": "#/definitions/SuccessApiResponseFormat"
+            }
+          },
+          "400": {
+            "description": "Failure Response Format",
+            "schema": {
+              "$ref": "#/definitions/FailedApiResponseFormat"
+            }
+          }
+        }
+      }
+    },
+    "/todo/{todoId}/trash": {
+      "delete": {
+        "tags": ["Todo"],
+        "summary": "Trash Todo",
+        "description": "This will Trash Todo",
+        "operationId": "trashedTodo",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/definitions/token"
+            }
+          },
+          {
+            "in": "path",
+            "name": "todoId",
+            "description": "params",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/params"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Response Format",
+            "schema": {
+              "$ref": "#/definitions/SuccessApiResponseFormat"
+            }
+          },
+          "400": {
+            "description": "Failure Response Format",
+            "schema": {
+              "$ref": "#/definitions/FailedApiResponseFormat"
+            }
+          }
+        }
+      }
+    },
+    "/todo/{todoId}/unTrash": {
+      "put": {
+        "tags": ["Todo"],
+        "summary": "unTrash Todo",
+        "description": "This will unTrash Todo",
+        "operationId": "unTrashedTodo",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/definitions/token"
+            }
+          },
+          {
+            "in": "path",
+            "name": "todoId",
+            "description": "params",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/params"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Response Format",
+            "schema": {
+              "$ref": "#/definitions/SuccessApiResponseFormat"
+            }
+          },
+          "400": {
+            "description": "Failure Response Format",
+            "schema": {
+              "$ref": "#/definitions/FailedApiResponseFormat"
+            }
+          }
+        }
+      }
+    },
+    "/todo/{todoId}/finish": {
+      "patch": {
+        "tags": ["Todo"],
+        "summary": "finished Todo",
+        "description": "finished Todo to be displayed",
+        "operationId": "finishedTodo",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/definitions/token"
+            }
+          },
+          {
+            "in": "path",
+            "name": "todoId",
+            "description": "params",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/params"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Response Format",
+            "schema": {
+              "$ref": "#/definitions/SuccessApiResponseFormat"
+            }
+          },
+          "400": {
+            "description": "Failure Response Format",
+            "schema": {
+              "$ref": "#/definitions/FailedApiResponseFormat"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "params": {
+      "type": "string",
+      "example": "5ec71ac967af572c403bc523"
+    },
+    "token": {
+      "type": "string",
+      "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYzcxYWM5NjdhZjU3MmM0MDNiYzUyMyIsImlhdCI6MTU5MDg2MjA5OSwiZXhwIjoxNTkwOTQ4NDk5fQ.82nU1Yar-EppPzw0v_CeysSqg3w_-oaLmf0GK7zAbYQ"
+    },
+    "reset": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "example": "password"
+        }
+      }
+    },
+    "forget": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "bosomadex@gmail.com"
+        }
+      }
+    },
+    "user": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "Bosom12"
+        },
+        "email": {
+          "type": "string",
+          "example": "bosomadex@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "format": "password",
+          "example": "password"
+        }
+      }
+    },
+    "todo": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "example"
+        },
+        "description": {
+          "type": "string",
+          "example": "example"
+        },
+        "dueDate": {
+          "type": "string",
+          "example": "example"
+        }
+      }
+    },
+    "login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "bosomadex@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "password"
+        }
+      }
+    }
+  },
+  
+  "externalDocs": {
+    "description": "README.md file for project",
+    "url": "https://github.com/bosom12/Evernote/blob/master/README.md"
+  }
+}

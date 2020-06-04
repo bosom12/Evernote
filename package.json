@@ -1,0 +1,38 @@
+{
+  "name": "evernote",
+  "version": "1.0.0",
+  "description": "First project",
+  "main": "app.js",
+  "repository": "https://github.com/bosom12/Evernote.git",
+  "author": "bosom",
+  "license": "MIT",
+  "scripts": {
+    "start": "babel-node app.js",
+    "start:dev": "nodemon --exec babel-node app",
+    "heroku-postbuild": "npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "form-my-simple-validation": "^0.0.11",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.15",
+    "nodemailer": "^6.4.7",
+    "nodemailer-ses-transport": "^1.5.1",
+    "swagger-ui-express": "^4.1.4",
+    "uuidv4": "^6.1.0"
+  }, 
+  "devDependencies": {
+    "eslint": "^5.14.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "nodemon": "^1.18.10"
+  }
+}
