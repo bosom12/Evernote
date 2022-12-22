@@ -21,7 +21,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "form-my-simple-validation": "^0.0.11",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.9.15",
     "nodemailer": "^6.4.7",
     "nodemailer-ses-transport": "^1.5.1",
